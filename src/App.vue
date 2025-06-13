@@ -4,12 +4,10 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
     <div class="h-screen flex flex-col">
-        <header class="w-full h-20">
+        <header class="w-full h-18">
         </header>
-        <main class="w-full h-full">
-            <div class="w-full h-full">
-                <RouterView />
-            </div>
+        <main class="w-full flex-1">
+            <RouterView />
         </main>
     </div>
 </template>

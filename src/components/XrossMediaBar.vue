@@ -1,51 +1,51 @@
 <script setup lang="ts">
-/*
-    - XMB holds XMB Columns
-    - XMB Columns holds XMB Panels
+import { ref, defineProps, useSlots, computed } from "vue"
 
-    - Panels are passed to columns in the Column slot
-    - A list is passed to the column containing all of the visibility refs
-    - On column up/down arrow or w/s key:
-        - make the current panel invisible and the next one visible
-    - Also need to pass the starting one? or maybe have the Column user set them as desired
-    
-    - transitions controlled by vue CSS-based-transitions
-    - Probably goind to need some type of cooldown on the switching of pages
-
-    - Columns are passed to XMB in slot
-    - Basically do the same thing as with panels except left/right
-*/
-import { defineModel, defineProps } from "vue"
-const activeList = defineModel('activeList')
+// TODO Handle mouse events to work globally but only for active slot?
 
 const props = defineProps({
     defaultActive: {
         type: Number, required: true
+    },
+    horizontal: {
+        type: Boolean, default: false
     }
 })
-let activeIndex = props.defaultActive
-activeList.value[activeIndex] = true
+
+const slots = useSlots()
+const slotCount = computed(() => {
+    return Object.keys(slots).filter(name => /^slot-\d+$/.test(name)).length
+})
+
+const activeIndex = ref(props.defaultActive)
 
 function moveDown() {
-    if (activeIndex > 0) {
-        activeList.value[activeIndex] = false
-        activeIndex -= 1
-        activeList.value[activeIndex] = true
+    if (activeIndex.value > 0) {
+        activeIndex.value -= 1
     }
 }
 
 function moveUp() {
-    if (activeIndex < activeList.value.length - 1) {
-        activeList.value[activeIndex] = false
-        activeIndex += 1
-        activeList.value[activeIndex] = true
+    if (activeIndex.value < slotCount.value - 1) {
+        activeIndex.value += 1
     }
 }
 
 </script>
 
 <template>
-    <div @keyup.right="moveDown" @keyup.left="moveUp" tabindex="0">
-        <slot />
+    <div v-if="!props.horizontal" @keyup.up="moveDown" @keyup.down="moveUp" tabindex="0">
+        <div v-for="index in slotCount" :key="index">
+            <div v-show="activeIndex === index - 1">
+                <slot :name="'slot-' + (index - 1)" />
+            </div>
+        </div>
+    </div>
+    <div v-else @keyup.left="moveDown" @keyup.right="moveUp" tabindex="0">
+        <div v-for="index in slotCount" :key="index">
+            <div v-show="activeIndex === index - 1">
+                <slot :name="'slot-' + (index - 1)" />
+            </div>
+        </div>
     </div>
 </template>

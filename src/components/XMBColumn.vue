@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { defineModel, defineProps } from "vue"
 const activeList = defineModel('activeList')
-console.log('1', activeList.value)
 
 const props = defineProps({
     defaultActive: {
@@ -10,7 +9,6 @@ const props = defineProps({
 })
 let activeIndex = props.defaultActive
 activeList.value[activeIndex] = true
-console.log('2', activeList.value)
 
 function moveUp() {
     if (activeIndex > 0) {

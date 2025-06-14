@@ -7,7 +7,7 @@ const activeList = ref(new Array(3).fill(false))
 <template>
     <h1>This is a home page</h1>
     <XMBColumn class="flex-1 w-full bg-red-400" v-model:active-list="activeList" :default-active="0">
-        <div class="grow flex bg-blue-400" v-for="(_, index) in activeList" v-show="activeList[index]">
+        <div class="h-full flex bg-blue-400" v-for="(_, index) in activeList" v-show="activeList[index]">
             {{ index }}
         </div>
 

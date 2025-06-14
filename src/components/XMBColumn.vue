@@ -10,7 +10,7 @@ const props = defineProps({
 let activeIndex = props.defaultActive
 activeList.value[activeIndex] = true
 
-function moveUp() {
+function moveDown() {
     if (activeIndex > 0) {
         activeList.value[activeIndex] = false
         activeIndex -= 1
@@ -18,7 +18,7 @@ function moveUp() {
     }
 }
 
-function moveDown() {
+function moveUp() {
     if (activeIndex < activeList.value.length - 1) {
         activeList.value[activeIndex] = false
         activeIndex += 1
@@ -29,7 +29,7 @@ function moveDown() {
 </script>
 
 <template>
-    <div @keyup.up="moveUp" @keyup.down="moveDown" tabindex="0">
+    <div @keyup.up="moveDown" @keyup.down="moveUp" tabindex="0">
         <slot />
     </div>
 </template>

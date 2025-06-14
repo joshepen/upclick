@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
 /*
     - XMB holds XMB Columns
     - XMB Columns holds XMB Panels
@@ -15,10 +15,37 @@
     - Columns are passed to XMB in slot
     - Basically do the same thing as with panels except left/right
 */
+import { defineModel, defineProps } from "vue"
+const activeList = defineModel('activeList')
+
+const props = defineProps({
+    defaultActive: {
+        type: Number, required: true
+    }
+})
+let activeIndex = props.defaultActive
+activeList.value[activeIndex] = true
+
+function moveDown() {
+    if (activeIndex > 0) {
+        activeList.value[activeIndex] = false
+        activeIndex -= 1
+        activeList.value[activeIndex] = true
+    }
+}
+
+function moveUp() {
+    if (activeIndex < activeList.value.length - 1) {
+        activeList.value[activeIndex] = false
+        activeIndex += 1
+        activeList.value[activeIndex] = true
+    }
+}
+
 </script>
 
 <template>
-    <div class="h-full w-full flex">
+    <div @keyup.right="moveDown" @keyup.left="moveUp" tabindex="0">
         <slot />
     </div>
 </template>

@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import XrossMediaBar from '@/components/XrossMediaBar.vue';
-const activeList = ref(new Array(5).fill(false))
 </script>
 
 <template>
     <h1>This is a home page</h1>
     <XrossMediaBar horizontal :default-active="0">
-        <template #slot-0>
-            <XrossMediaBar class="flex-1 w-full bg-red-400" v-model:active-list="activeList" :default-active="1">
+        <template #slot-0=slotProps>
+            <XrossMediaBar class="flex-1 w-full bg-red-400" :default-active="0" :visible="slotProps.visible">
                 <template #slot-0>
                     <div>TEST 0</div>
                 </template>
@@ -20,8 +18,8 @@ const activeList = ref(new Array(5).fill(false))
                 </template>
             </XrossMediaBar>
         </template>
-        <template #slot-1>
-            <XrossMediaBar class="flex-1 w-full bg-green-400" v-model:active-list="activeList" :default-active="1">
+        <template #slot-1=slotProps>
+            <XrossMediaBar class="flex-1 w-full bg-green-400" :default-active="2" :visible="slotProps.visible">
                 <template #slot-0>
                     <div>TEST 0</div>
                 </template>
@@ -33,8 +31,8 @@ const activeList = ref(new Array(5).fill(false))
                 </template>
             </XrossMediaBar>
         </template>
-        <template #slot-2>
-            <XrossMediaBar class="flex-1 w-full bg-blue-400" v-model:active-list="activeList" :default-active="1">
+        <template #slot-2=slotProps>
+            <XrossMediaBar class="flex-1 w-full bg-blue-400" :default-active="1" :visible="slotProps.visible">
                 <template #slot-0>
                     <div>TEST 0</div>
                 </template>

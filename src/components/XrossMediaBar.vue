@@ -1,20 +1,24 @@
 <script setup lang="ts">
-import { ref, defineProps, useSlots, computed } from "vue"
-
-// TODO Handle mouse events to work globally but only for active slot?
+import { ref, defineProps, useSlots, computed, watch, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
     defaultActive: {
-        type: Number, required: true
+        type: Number,
+        required: true,
     },
     horizontal: {
-        type: Boolean, default: false
+        type: Boolean,
+        default: false,
+    },
+    visible: {
+        type: Boolean,
+        default: true
     }
 })
 
 const slots = useSlots()
 const slotCount = computed(() => {
-    return Object.keys(slots).filter(name => /^slot-\d+$/.test(name)).length
+    return Object.keys(slots).filter((name) => /^slot-\d+$/.test(name)).length
 })
 
 const activeIndex = ref(props.defaultActive)
@@ -31,20 +35,38 @@ function moveUp() {
     }
 }
 
+function listenForMove(event: KeyboardEvent) {
+    console.log(event.key, props.horizontal, props.visible)
+    if (props.visible)
+        if (props.horizontal) {
+            if (event.key === 'ArrowRight') {
+                moveUp()
+            } else if (event.key === 'ArrowLeft') {
+                moveDown()
+            }
+        } else {
+            if (event.key === 'ArrowUp') {
+                moveUp()
+            } else if (event.key === 'ArrowDown') {
+                moveDown()
+            }
+        }
+}
+
+onMounted(() => {
+    window.addEventListener("keydown", listenForMove)
+})
+
+onUnmounted(() => {
+    window.removeEventListener("keydown", listenForMove)
+})
 </script>
 
 <template>
-    <div v-if="!props.horizontal" @keyup.up="moveDown" @keyup.down="moveUp" tabindex="0">
+    <div>
         <div v-for="index in slotCount" :key="index">
             <div v-show="activeIndex === index - 1">
-                <slot :name="'slot-' + (index - 1)" />
-            </div>
-        </div>
-    </div>
-    <div v-else @keyup.left="moveDown" @keyup.right="moveUp" tabindex="0">
-        <div v-for="index in slotCount" :key="index">
-            <div v-show="activeIndex === index - 1">
-                <slot :name="'slot-' + (index - 1)" />
+                <slot :name="'slot-' + (index - 1)" :visible="activeIndex === index - 1" />
             </div>
         </div>
     </div>

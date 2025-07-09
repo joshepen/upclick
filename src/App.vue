@@ -8,7 +8,7 @@ import AppHeader from './AppHeader.vue';
         <header class="w-full h-14">
             <app-header />
         </header>
-        <main class="w-full flex-1 flex flex-col bg-slate-300">
+        <main class="w-full flex-1 flex flex-col">
             <RouterView />
         </main>
     </div>

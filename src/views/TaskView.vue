@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import { useLocalStore } from '@/stores/LocalStore';
-import { onMounted } from 'vue';
-
-const { tasks } = useLocalStore()
-
-onMounted(() => console.log(tasks))
+import { useTaskStore } from '@/stores/TaskStore';
+const { tasks } = useTaskStore()
 </script>
 
 <template>

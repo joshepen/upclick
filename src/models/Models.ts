@@ -1,10 +1,12 @@
+import type { Ref } from 'vue'
+
 export interface TaskModel {
   title: string
   description: string
-  status: StatusModel
+  status: Ref<StatusModel>
   createdOn: Date
   deadline: Date | null
-  tags: TagModel[]
+  tags: Ref<TagModel>[]
 }
 
 export interface TagModel {

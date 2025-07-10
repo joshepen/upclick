@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 export interface TaskModel {
   title: string
   description: string
-  status: Ref<StatusModel>
+  statusId: string
   createdOn: Date
   deadline: Date | null
   tags: Ref<TagModel>[]

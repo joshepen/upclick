@@ -5,7 +5,7 @@ import AppHeader from './AppHeader.vue';
 
 <template>
     <div class="h-screen flex flex-col">
-        <header class="w-full h-14">
+        <header class="w-full h-18">
             <app-header />
         </header>
         <main class="w-full flex-1 flex flex-col">

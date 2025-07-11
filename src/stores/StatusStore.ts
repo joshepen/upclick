@@ -1,7 +1,7 @@
 import type { StatusModel } from '@/models/Models'
 import { useLocalStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
-import { ref, type Ref } from 'vue'
+import { ref, type Ref, computed } from 'vue'
 
 export const useStatusStore = defineStore('statuses', () => {
   // This needs to be sorted by order so I won't make statuses directly accessible
@@ -17,7 +17,13 @@ export const useStatusStore = defineStore('statuses', () => {
       order: 100,
     },
   })
+
+  const statusIds = computed<string[]>(() =>
+    Object.keys(statuses.value).sort((status1: string, status2: string) => {
+      return statuses.value[status1].order - statuses.value[status2].order
+    }),
+  )
   // TODO Add getNext function
 
-  return { statuses }
+  return { statuses, statusIds }
 })

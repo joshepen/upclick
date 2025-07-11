@@ -8,8 +8,13 @@ export const useStatusStore = defineStore('statuses', () => {
   const statuses: Ref<{ [id: string]: StatusModel }> = useLocalStorage('statuses', {
     default_status: {
       title: 'To Do',
-      color: 'red',
+      color: 'slate',
       order: 0,
+    },
+    completed: {
+      title: 'Completed',
+      color: 'green',
+      order: 100,
     },
   })
   // TODO Add getNext function

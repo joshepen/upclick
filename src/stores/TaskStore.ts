@@ -12,7 +12,7 @@ export const useTaskStore = defineStore('taskstore', () => {
       statusId: 'default_status',
       createdOn: new Date(),
       deadline: null,
-      tags: [],
+      tags: ['feature', 'needs_refinement'],
     } as TaskModel,
   ])
   return { tasks }

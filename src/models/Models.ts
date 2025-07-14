@@ -6,7 +6,7 @@ export interface TaskModel {
   statusId: string
   createdOn: Date
   deadline: Date | null
-  tags: Ref<TagModel>[]
+  tags: string[]
 }
 
 export interface TagModel {

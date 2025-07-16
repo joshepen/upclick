@@ -17,3 +17,7 @@ body {
   color: white !important;
   background: var(--color-background);
 }
+
+.p-button {
+  color: var(--color-slate-800) !important;
+}

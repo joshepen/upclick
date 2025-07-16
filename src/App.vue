@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import AppHeader from './AppHeader.vue'
+import { DynamicDialog } from 'primevue'
 </script>
 
 <template>
@@ -12,4 +13,5 @@ import AppHeader from './AppHeader.vue'
       <RouterView />
     </main>
   </div>
+  <DynamicDialog />
 </template>

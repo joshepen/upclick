@@ -8,6 +8,7 @@ import router from './router'
 import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import { definePreset } from '@primeuix/themes'
+import DialogService from 'primevue/dialogservice'
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -35,15 +36,7 @@ app.use(PrimeVue, {
   theme: {
     preset: MyPreset,
   },
-  //   pt: {
-  //     button: {
-  //       label: { class: '!text-black' },
-  //       root: {
-  //         class:
-  //           '!bg-teal-200/80 !border-none !text-white hover:!bg-teal-100/80 active:!bg-teal-300/80 !text-black',
-  //       },
-  //     },
-  //   },
 })
+app.use(DialogService)
 
 app.mount('#app')

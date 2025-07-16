@@ -4,7 +4,6 @@ import { defineStore } from 'pinia'
 import { ref, type Ref, computed } from 'vue'
 
 export const useStatusStore = defineStore('statuses', () => {
-  // This needs to be sorted by order so I won't make statuses directly accessible
   const statuses: Ref<{ [id: string]: StatusModel }> = useLocalStorage('statuses', {
     default_status: {
       title: 'To Do',

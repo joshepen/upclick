@@ -18,6 +18,6 @@ body {
   background: var(--color-background);
 }
 
-.p-button {
+.p-button .p-button-label {
   color: var(--color-slate-800) !important;
 }

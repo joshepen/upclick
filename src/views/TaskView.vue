@@ -2,7 +2,7 @@
 import { DataTable, Column, Button, useDialog } from 'primevue'
 import { useTaskStore } from '@/stores/TaskStore'
 import { useStatusStore } from '@/stores/StatusStore'
-import { onMounted, watch } from 'vue'
+import { watch } from 'vue'
 import TagMultiSelect from '@/components/TagMultiSelect.vue'
 import StatusSelect from '@/components/StatusSelect.vue'
 import TaskEditModal from '@/modals/TaskEditModal.vue'
@@ -50,7 +50,6 @@ function onDeleteClicked(id: string) {
     delete taskStore.tasks[id]
 }
 
-// TODO handle no longer valid statusId
 </script>
 
 <template>
@@ -58,7 +57,13 @@ function onDeleteClicked(id: string) {
         return { ...taskStore.tasks[id], id }
     })
         " show-gridlines>
-        <Column field="title" header="Title" class="text-nowrap" />
+        <Column field="title" header="Title" class="text-nowrap" pt:column:body-cell:class="!bg-red-300 !p-20">
+            <template #body="slotProps">
+                <div v-tooltip="slotProps.data.description" class="grow">
+                    {{ slotProps.data.title }}
+                </div>
+            </template>
+        </Column>
         <Column field="status" header="Status">
             <template #body="slotProps">
                 <StatusSelect v-model="taskStore.tasks[slotProps.data.id].statusId" />
@@ -67,6 +72,11 @@ function onDeleteClicked(id: string) {
         <Column field="tags" header="Tags">
             <template #body="slotProps">
                 <TagMultiSelect v-model="taskStore.tasks[slotProps.data.id].tags" />
+            </template>
+        </Column>
+        <Column field="deadline" header="Deadline">
+            <template #body="slotProps">
+                {{ slotProps.data.deadline }}
             </template>
         </Column>
         <Column field="buttons" class="!w-12">

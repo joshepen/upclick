@@ -9,6 +9,7 @@ import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import { definePreset } from '@primeuix/themes'
 import DialogService from 'primevue/dialogservice'
+import Tooltip from 'primevue/tooltip'
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -38,5 +39,7 @@ app.use(PrimeVue, {
   },
 })
 app.use(DialogService)
+
+app.directive('tooltip', Tooltip)
 
 app.mount('#app')

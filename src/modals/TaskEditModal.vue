@@ -16,15 +16,15 @@ function onSaveClicked() {
             ...dialogRef.value.data.task,
             title: title.value,
             description: description.value,
-            deadline: deadline.value,
+            deadline: deadline.value.toISOString(),
         }
     } else {
         newTask = {
             title: title.value,
             description: description.value,
             statusId: '',
-            createdOn: new Date(),
-            deadline: deadline,
+            createdOn: new Date().toISOString(),
+            deadline: deadline.value.toISOString(),
             tags: [],
         }
     }

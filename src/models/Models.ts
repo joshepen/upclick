@@ -4,8 +4,9 @@ export interface TaskModel {
   title: string
   description: string
   statusId: string
-  createdOn: Date
-  deadline: Date | null
+  // localStorage can't store dates
+  createdOn: string
+  deadline: string
   tags: string[]
 }
 

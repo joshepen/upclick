@@ -76,7 +76,7 @@ function onDeleteClicked(id: string) {
         </Column>
         <Column field="deadline" header="Deadline">
             <template #body="slotProps">
-                {{ slotProps.data.deadline }}
+                {{ new Date(slotProps.data.deadline).toDateString() }}
             </template>
         </Column>
         <Column field="buttons" class="!w-12">

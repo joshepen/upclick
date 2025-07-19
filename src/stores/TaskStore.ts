@@ -27,16 +27,14 @@ export const useTaskStore = defineStore('taskstore', () => {
     Object.keys(tasks.value).sort((task1: string, task2: string) => {
       const deadline1 = tasks.value[task1].deadline
       const deadline2 = tasks.value[task2].deadline
-      const task1Date = new Date(deadline1)
-      const task2Date = new Date(deadline2)
 
       if (deadline1 === '') {
         return 1
       } else if (deadline2 === '') {
         return -1
-      } else if (task1Date < task2Date) {
+      } else if (deadline1 < deadline2) {
         return -1
-      } else if (task2Date < task1Date) {
+      } else if (deadline2 < deadline1) {
         return 1
       }
       return 0

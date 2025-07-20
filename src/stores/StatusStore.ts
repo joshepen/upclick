@@ -13,7 +13,12 @@ export const useStatusStore = defineStore('statuses', () => {
     in_progress: {
       title: 'In Progress',
       color: 'fuchsia',
-      order: 100,
+      order: 40,
+    },
+    waiting: {
+      title: 'Waiting',
+      color: 'yellow',
+      order: 50,
     },
     completed: {
       title: 'Completed',

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DataTable, Column, Button, useDialog } from 'primevue'
+import { Button, useDialog } from 'primevue'
 import { useTaskStore } from '@/stores/TaskStore'
 import { useStatusStore } from '@/stores/StatusStore'
 import { watch } from 'vue'
@@ -45,40 +45,26 @@ function onDeleteClicked(id: string) {
 <template>
   <div class="flex flex-col justify-between p-1 gap-1">
     <div class="flex gap-1">
-      <div class="!bg-slate-800 p-1 flex w-[20%] justify-center items-center text-nowrap text-lg">
-        Title
-      </div>
-      <div
-        class="!bg-slate-800 p-1 flex w-[20%] justify-center items-center overflow-hidden text-lg"
-      >
-        Status
-      </div>
-      <div
-        class="!bg-slate-800 p-1 flex w-[34%] justify-center items-center overflow-hidden text-lg"
-      >
-        Tags
-      </div>
-      <div class="!bg-slate-800 p-1 flex w-[13%] justify-center items-center text-center text-lg">
-        Created
-      </div>
-      <div class="!bg-slate-800 p-1 flex w-[13%] justify-center items-center text-center text-lg">
-        Deadline
-      </div>
-      <div class="!bg-slate-800 p-2 flex w-[10%] justify-center items-center text-lg">
+      <div class="cell-header w-[20%] text-nowrap">Title</div>
+      <div class="cell-header w-[20%] overflow-hidden">Status</div>
+      <div class="cell-header w-[34%] overflow-hidden">Tags</div>
+      <div class="cell-header w-[13%] text-center">Created</div>
+      <div class="cell-header w-[13%] text-center">Deadline</div>
+      <div class="cell-header !p-2 flex w-[10%]">
         <Button label="Add" @click="onAddClicked" class="grow" pt:label:class="!text-slate-800" />
       </div>
     </div>
     <div v-for="id in taskStore.taskIds" class="flex gap-1">
-      <div class="!bg-slate-700 p-1 flex w-[20%] justify-center items-center text-nowrap text-lg">
+      <div class="cell w-[20%] text-nowrap text-lg">
         {{ taskStore.tasks[id].title }}
       </div>
-      <div class="!bg-slate-700 p-1 flex w-[20%] justify-center items-center overflow-hidden">
+      <div class="cell w-[20%] overflow-hidden">
         <StatusSelect v-model="taskStore.tasks[id].statusId" />
       </div>
-      <div class="!bg-slate-700 p-1 flex w-[34%] justify-center items-center overflow-hidden">
+      <div class="cell w-[34%] overflow-hidden">
         <TagMultiSelect v-model="taskStore.tasks[id].tags" />
       </div>
-      <div class="!bg-slate-700 p-1 flex w-[13%] justify-center items-center text-center">
+      <div class="cell w-[13%] text-center">
         {{
           taskStore.tasks[id].createdOn
             ? new Date(taskStore.tasks[id].createdOn).toDateString()
@@ -93,12 +79,12 @@ function onDeleteClicked(id: string) {
             : ''
         }}
       </div>
-      <div class="!bg-slate-700 p-1 flex w-[13%] justify-center items-center text-center">
+      <div class="cell w-[13%] text-center">
         {{
           taskStore.tasks[id].deadline ? new Date(taskStore.tasks[id].deadline).toDateString() : ''
         }}
       </div>
-      <div class="!bg-slate-700 p-1 flex w-[10%] justify-center items-center">
+      <div class="cell w-[10%]">
         <div class="flex gap-3">
           <Button
             label="✎"

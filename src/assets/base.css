@@ -20,3 +20,21 @@ body {
 .p-button .p-button-label {
   color: var(--color-slate-800) !important;
 }
+
+.cell {
+  display: flex;
+  background-color: var(--color-slate-700);
+  padding: calc(var(--spacing));
+  justify-content: center;
+  align-items: center;
+}
+
+.cell-header {
+  display: flex;
+  background-color: var(--color-slate-800);
+  padding: calc(var(--spacing));
+  justify-content: center;
+  align-items: center;
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+}

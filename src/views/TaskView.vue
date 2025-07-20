@@ -88,13 +88,13 @@ function onDeleteClicked(id: string) {
         <div class="flex gap-3">
           <Button
             label="✎"
-            pt:root:class="!w-10 !h-10"
+            pt:root:class="w-full !h-10"
             pt:label:class="!text-slate-800 text-2xl"
             @click="onEditClicked(id)"
           />
           <Button
             label="X"
-            pt:root:class="!w-10 !h-10 !bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200 !border-none"
+            pt:root:class="w-full !h-10 !bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200 !border-none"
             pt:label:class="!text-slate-800 text-xl"
             @click="onDeleteClicked(id)"
           />

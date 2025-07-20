@@ -45,10 +45,24 @@ function onDeleteClicked(id: string) {
 
 <template>
     <div class="flex flex-col justify-between p-1 gap-1">
+        <div class="flex gap-1">
+            <div class="!bg-slate-800 p-1 flex w-[20%] justify-center items-center text-nowrap text-lg">Title</div>
+            <div class="!bg-slate-800 p-1 flex w-[20%] justify-center items-center overflow-hidden text-lg">
+                Status
+            </div>
+            <div class="!bg-slate-800 p-1 flex w-[34%] justify-center items-center overflow-hidden text-lg">
+                Tags
+            </div>
+            <div class="!bg-slate-800 p-1 flex w-[13%] justify-center items-center text-center text-lg">Created</div>
+            <div class="!bg-slate-800 p-1 flex w-[13%] justify-center items-center text-center text-lg"> Deadline</div>
+            <div class="!bg-slate-800 p-2 flex w-[10%] justify-center items-center text-lg">
+                <Button label="Add" @click="onAddClicked" class="grow" pt:label:class="!text-slate-800" />
+            </div>
+        </div>
         <div v-for="id in taskStore.taskIds" class="flex gap-1">
             <div class="!bg-slate-700 p-1 flex w-[20%] justify-center items-center text-nowrap text-lg">{{
                 taskStore.tasks[id].title
-            }}</div>
+                }}</div>
             <div class="!bg-slate-700 p-1 flex w-[20%] justify-center items-center overflow-hidden">
                 <StatusSelect v-model="taskStore.tasks[id].statusId" />
             </div>

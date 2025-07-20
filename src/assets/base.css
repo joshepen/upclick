@@ -15,7 +15,6 @@ body {
 * {
   font-family: 'Roboto';
   color: white !important;
-  background: var(--color-background);
 }
 
 .p-button .p-button-label {

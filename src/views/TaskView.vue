@@ -13,94 +13,66 @@ const { statusIds } = useStatusStore()
 const dialog = useDialog()
 
 watch(taskStore.tasks, () => {
-  taskStore.taskIds.forEach((taskId) => {
-    if (!statusIds.includes(taskStore.tasks[taskId].statusId) && statusIds.length > 0) {
-      taskStore.tasks[taskId].statusId = statusIds[0]
-    }
-  })
+    taskStore.taskIds.forEach((taskId) => {
+        if (!statusIds.includes(taskStore.tasks[taskId].statusId) && statusIds.length > 0) {
+            taskStore.tasks[taskId].statusId = statusIds[0]
+        }
+    })
 })
 
-function onEditClicked(id: string, task: TaskModel) {
-  dialog.open(TaskEditModal, {
-    props: { modal: true },
-    data: { id },
-  })
+function onEditClicked(id: string) {
+    dialog.open(TaskEditModal, {
+        props: { modal: true },
+        data: { id },
+    })
 }
 
 function onAddClicked() {
-  dialog.open(TaskEditModal, {
-    props: { modal: true },
-    onClose: (options) => {
-      if (options?.data) {
-        taskStore.tasks[options?.data.id] = options?.data.task
-      }
-    },
-  })
+    dialog.open(TaskEditModal, {
+        props: { modal: true },
+        onClose: (options) => {
+            if (options?.data) {
+                taskStore.tasks[options?.data.id] = options?.data.task
+            }
+        },
+    })
 }
 
 function onDeleteClicked(id: string) {
-  delete taskStore.tasks[id]
+    delete taskStore.tasks[id]
 }
 </script>
 
 <template>
-  <DataTable
-    :value="
-      taskStore.taskIds.map((id) => {
-        return { ...taskStore.tasks[id], id }
-      })
-    "
-    show-gridlines
-  >
-    <Column
-      field="title"
-      header="Title"
-      class="text-nowrap"
-      pt:column:body-cell:class="!bg-red-300 !p-20"
-    >
-      <template #body="slotProps">
-        <div v-tooltip="slotProps.data.description" class="grow">
-          {{ slotProps.data.title }}
+    <div class="flex flex-col justify-between p-1 gap-1">
+        <div v-for="id in taskStore.taskIds" class="flex gap-1">
+            <div class="!bg-slate-700 p-1 flex w-[20%] justify-center items-center text-nowrap text-lg">{{
+                taskStore.tasks[id].title
+            }}</div>
+            <div class="!bg-slate-700 p-1 flex w-[20%] justify-center items-center overflow-hidden">
+                <StatusSelect v-model="taskStore.tasks[id].statusId" />
+            </div>
+            <div class="!bg-slate-700 p-1 flex w-[34%] justify-center items-center overflow-hidden">
+                <TagMultiSelect v-model="taskStore.tasks[id].tags" />
+            </div>
+            <div class="!bg-slate-700 p-1 flex w-[13%] justify-center items-center text-center">{{
+                taskStore.tasks[id].createdOn ?
+                    new Date(taskStore.tasks[id].createdOn).toDateString() : '' }} {{ taskStore.tasks[id].createdOn ?
+                    new Date(taskStore.tasks[id].createdOn).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) :
+                    ''
+                }}</div>
+            <div class="!bg-slate-700 p-1 flex w-[13%] justify-center items-center text-center">{{
+                taskStore.tasks[id].deadline ?
+                    new Date(taskStore.tasks[id].deadline).toDateString() : '' }}</div>
+            <div class="!bg-slate-700 p-1 flex w-[10%] justify-center items-center">
+                <div class="flex gap-3">
+                    <Button label="✎" pt:root:class="!w-10 !h-10" pt:label:class="!text-slate-800 text-2xl"
+                        @click="onEditClicked(id)" />
+                    <Button label="X"
+                        pt:root:class="!w-10 !h-10 !bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200 !border-none"
+                        pt:label:class="!text-slate-800 text-xl" @click="onDeleteClicked(id)" />
+                </div>
+            </div>
         </div>
-      </template>
-    </Column>
-    <Column field="status" header="Status">
-      <template #body="slotProps">
-        <StatusSelect v-model="taskStore.tasks[slotProps.data.id].statusId" />
-      </template>
-    </Column>
-    <Column field="tags" header="Tags">
-      <template #body="slotProps">
-        <TagMultiSelect v-model="taskStore.tasks[slotProps.data.id].tags" />
-      </template>
-    </Column>
-    <Column field="deadline" header="Deadline">
-      <template #body="slotProps">
-        {{ slotProps.data.deadline ? new Date(slotProps.data.deadline).toDateString() : '' }}
-      </template>
-    </Column>
-    <Column field="buttons" class="!w-12">
-      <template #header>
-        <div class="flex justify-center grow">
-          <Button label="Add" class="w-24" @click="onAddClicked" />
-        </div>
-      </template>
-      <template #body="slotProps">
-        <div class="flex gap-3">
-          <Button
-            label="✎"
-            pt:root:class="!w-10 !h-10"
-            pt:label:class="!text-slate-800 text-2xl"
-            @click="onEditClicked(slotProps.data.id, slotProps.data)"
-          />
-          <Button
-            label="X"
-            pt:root:class="!w-10 !h-10 !bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200 !border-none"
-            pt:label:class="!text-slate-800 text-xl"
-            @click="onDeleteClicked(slotProps.data.id)"
-          />
-        </div>
-      </template>
-    </Column>
-  </DataTable>
+    </div>
 </template>

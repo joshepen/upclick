@@ -8,16 +8,13 @@ const { tags, tagIds } = useTagStore()
 </script>
 
 <template>
-  <MultiSelect v-model="selectedTagIds" :options="tagIds" display="chip">
-    <template #option="slotProps">
-      {{ tags[slotProps.option].title }}
-    </template>
-    <template #chip="slotProps">
-      <Chip
-        :label="tags[slotProps.value].title"
-        pt:label:class="!text-black"
-        :pt:root:class="['!bg-' + tags[slotProps.value].color + '-300']"
-      />
-    </template>
-  </MultiSelect>
+    <MultiSelect v-model="selectedTagIds" :options="tagIds" display="chip" fluid>
+        <template #option="slotProps">
+            {{ tags[slotProps.option].title }}
+        </template>
+        <template #chip="slotProps">
+            <Chip :label="tags[slotProps.value].title" pt:label:class="!text-black"
+                :pt:root:class="['!bg-' + tags[slotProps.value].color + '-300']" />
+        </template>
+    </MultiSelect>
 </template>

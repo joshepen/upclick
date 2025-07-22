@@ -13,7 +13,7 @@ function goTo(pageName: string) {
       <div class="h-full flex gap-2 items-center !bg-white rounded-xl px-2">
         <Button @click="goTo('task')" class="!rounded-xl">Tasks</Button>
         <Button @click="goTo('status')" class="!rounded-xl">Statuses</Button>
-        <Button class="!rounded-xl">Tags</Button>
+        <Button @click="goTo('tag')" class="!rounded-xl">Tags</Button>
       </div>
     </div>
     <div class="flex gap-3 items-center">

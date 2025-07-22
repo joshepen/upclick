@@ -48,7 +48,7 @@ function onDeleteClicked(id: string) {
       <Button label="Add" @click="onAddClicked" class="grow" pt:label:class="!text-slate-800" />
     </div>
   </div>
-  <div v-for="id in taskStore.taskIds" class="grid grid-cols-12 col-span-6 gap-1 pb-1">
+  <div v-for="id in taskStore.taskIds" class="grid grid-cols-12 gap-1 pb-1">
     <div class="col-start-1 col-span-2 cell text-nowrap text-lg">
       {{ taskStore.tasks[id].title }}
     </div>

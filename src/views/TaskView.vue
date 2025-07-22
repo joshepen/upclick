@@ -2,7 +2,7 @@
 import { Button, useDialog } from 'primevue'
 import { useTaskStore } from '@/stores/TaskStore'
 import { useStatusStore } from '@/stores/StatusStore'
-import { watch } from 'vue'
+import { onBeforeMount } from 'vue'
 import TagMultiSelect from '@/components/TagMultiSelect.vue'
 import StatusSelect from '@/components/StatusSelect.vue'
 import TaskEditModal from '@/modals/TaskEditModal.vue'
@@ -11,7 +11,7 @@ const taskStore = useTaskStore()
 const { statusIds } = useStatusStore()
 const dialog = useDialog()
 
-watch(taskStore.tasks, () => {
+onBeforeMount(() => {
   taskStore.taskIds.forEach((taskId) => {
     if (!statusIds.includes(taskStore.tasks[taskId].statusId) && statusIds.length > 0) {
       taskStore.tasks[taskId].statusId = statusIds[0]
@@ -29,11 +29,6 @@ function onEditClicked(id: string) {
 function onAddClicked() {
   dialog.open(TaskEditModal, {
     props: { modal: true },
-    onClose: (options) => {
-      if (options?.data) {
-        taskStore.tasks[options?.data.id] = options?.data.task
-      }
-    },
   })
 }
 

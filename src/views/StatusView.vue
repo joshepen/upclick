@@ -1,14 +1,27 @@
 <script setup lang="ts">
-import { Button } from 'primevue'
+import { Button, useDialog } from 'primevue'
 import { useStatusStore } from '@/stores/StatusStore'
+import StatusEditModal from '@/modals/StatusEditModal.vue'
 
+const dialog = useDialog()
 const statusStore = useStatusStore()
 
-function onAddClicked() {}
+function onAddClicked() {
+  dialog.open(StatusEditModal, {
+    props: { modal: true },
+  })
+}
 
-function onEditClicked(id: string) {}
+function onEditClicked(id: string) {
+  dialog.open(StatusEditModal, {
+    props: { modal: true },
+    data: { id },
+  })
+}
 
-function onDeleteClicked(id: string) {}
+function onDeleteClicked(id: string) {
+  delete statusStore.statuses[id]
+}
 </script>
 <template>
   <div class="grid grid-cols-7 gap-1 pb-1">

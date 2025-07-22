@@ -3,10 +3,11 @@ import type { Ref } from 'vue'
 export interface TaskModel {
   title: string
   description: string
-  status: Ref<StatusModel>
-  createdOn: Date
-  deadline: Date | null
-  tags: Ref<TagModel>[]
+  statusId: string
+  // localStorage can't store dates
+  createdOn: string
+  deadline: string
+  tags: string[]
 }
 
 export interface TagModel {

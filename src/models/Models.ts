@@ -7,7 +7,7 @@ export interface TaskModel {
   // localStorage can't store dates
   createdOn: string
   deadline: string
-  tags: string[]
+  tagIds: string[]
 }
 
 export interface TagModel {

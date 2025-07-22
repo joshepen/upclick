@@ -11,7 +11,7 @@ export const useTaskStore = defineStore('taskstore', () => {
       statusId: 'default_status',
       createdOn: new Date().toISOString(),
       deadline: '',
-      tags: ['needs_refinement', 'feature'],
+      tagIds: ['needs_refinement', 'feature'],
     },
     default_task2: {
       title: 'To Do 2',
@@ -19,7 +19,7 @@ export const useTaskStore = defineStore('taskstore', () => {
       statusId: 'default_status',
       createdOn: new Date().toISOString(),
       deadline: '',
-      tags: ['needs_refinement', 'bug'],
+      tagIds: ['needs_refinement', 'bug'],
     },
   })
 

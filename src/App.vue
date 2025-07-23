@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
+import AppHeader from './AppHeader.vue'
+import { DynamicDialog } from 'primevue'
 </script>
 
 <template>
-    <header>
+  <div class="h-screen flex flex-col">
+    <header class="w-full h-18">
+      <app-header />
     </header>
-    <RouterView />
+    <main class="w-full flex-1 flex flex-col">
+      <RouterView />
+    </main>
+  </div>
+  <DynamicDialog />
 </template>

@@ -30,20 +30,24 @@ const opacity = computed<string>(() => {
   }
   return ''
 })
+
+const dueColor = computed(() =>
+  new Date().toISOString() > taskStore.tasks[props.id].deadline ? '!text-red-300' : '',
+)
 </script>
 
 <template>
-  <div :class="['grid grid-cols-12 gap-1 pb-1', opacity]">
-    <div class="col-start-1 col-span-2 cell text-nowrap text-lg">
+  <div :class="['grid grid-cols-24 gap-1 pb-1', opacity]">
+    <div class="col-start-1 col-span-4 cell text-nowrap text-lg">
       {{ taskStore.tasks[id].title }}
     </div>
-    <div class="col-start-3 col-span-2 cell overflow-hidden">
+    <div class="col-start-5 col-span-6 cell overflow-hidden">
       <StatusSelect v-model="taskStore.tasks[id].statusId" />
     </div>
-    <div class="col-start-5 col-span-3 cell overflow-hidden">
+    <div class="col-start-11 col-span-6 cell overflow-hidden">
       <TagMultiSelect v-model="taskStore.tasks[id].tagIds" />
     </div>
-    <div class="col-start-8 col-span-2 cell overflow-hidden">
+    <div class="col-start-17 col-span-3 cell overflow-hidden">
       {{
         taskStore.tasks[id].createdOn ? new Date(taskStore.tasks[id].createdOn).toDateString() : ''
       }}
@@ -56,12 +60,12 @@ const opacity = computed<string>(() => {
           : ''
       }}
     </div>
-    <div class="col-start-10 col-span-2 cell overflow-hidden">
+    <div :class="['col-start-20 col-span-3 cell overflow-hidden', dueColor]">
       {{
         taskStore.tasks[id].deadline ? new Date(taskStore.tasks[id].deadline).toDateString() : ''
       }}
     </div>
-    <div class="col-start-12 col-span-1 cell overflow-hidden">
+    <div class="col-start-23 col-span-2 cell overflow-hidden">
       <div class="flex justify-around gap-2 p-1 grow">
         <Button
           label="✎"

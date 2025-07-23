@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { ref, type Ref, computed } from 'vue'
 
 export const useStatusStore = defineStore('statuses', () => {
+  const completed_id = 'completed'
   const statuses: Ref<{ [id: string]: StatusModel }> = useLocalStorage('statuses', {
     default_status: {
       title: 'To Do',
@@ -20,12 +21,13 @@ export const useStatusStore = defineStore('statuses', () => {
       color: 'yellow',
       order: 50,
     },
-    completed: {
-      title: 'Completed',
-      color: 'green',
-      order: 100,
-    },
   })
+
+  statuses.value[completed_id] = {
+    title: 'Completed',
+    color: 'green',
+    order: 100,
+  }
 
   const statusIds = computed<string[]>(() =>
     Object.keys(statuses.value).sort((status1: string, status2: string) => {
@@ -34,5 +36,5 @@ export const useStatusStore = defineStore('statuses', () => {
   )
   // TODO Add getNext function
 
-  return { statuses, statusIds }
+  return { statuses, statusIds, completed_id }
 })

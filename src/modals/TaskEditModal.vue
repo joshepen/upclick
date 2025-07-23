@@ -30,7 +30,7 @@ function onSaveClicked() {
       createdOn: createdOn.value,
       deadline: deadlineStr,
       statusId: '',
-      tags: [],
+      tagIds: [],
     } as TaskModel
   } else if (dialogRef.value.data.id !== id.value) {
     taskStore.tasks[id.value] = {

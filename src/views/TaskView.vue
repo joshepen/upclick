@@ -13,6 +13,10 @@ const { tagIds } = useTagStore()
 const dialog = useDialog()
 
 onBeforeMount(() => {
+  checkStaleIds()
+})
+
+function checkStaleIds() {
   taskStore.taskIds.forEach((taskId) => {
     if (!statusIds.includes(taskStore.tasks[taskId].statusId) && statusIds.length > 0) {
       taskStore.tasks[taskId].statusId = statusIds[0]
@@ -21,11 +25,12 @@ onBeforeMount(() => {
       return tagIds.includes(tagId)
     })
   })
-})
+}
 
 function onAddClicked() {
   dialog.open(TaskEditModal, {
     props: { modal: true },
+    onClose: checkStaleIds,
   })
 }
 </script>

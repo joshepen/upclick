@@ -50,14 +50,14 @@ function onDeleteClicked(id: string) {
     <div class="col-start-7 col-span-1 cell">
       <div class="flex justify-around gap-2 p-1 grow">
         <Button
-          v-if="id !== 'completed'"
+          v-if="id !== statusStore.completed_id"
           label="✎"
           pt:root:class="!h-10 w-full"
           pt:label:class="!text-slate-800 text-2xl"
           @click="onEditClicked(id)"
         />
         <Button
-          v-if="id !== 'completed'"
+          v-if="id !== statusStore.completed_id"
           label="X"
           pt:root:class="w-full !h-10 !bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200 !border-none"
           pt:label:class="!text-slate-800 text-xl"

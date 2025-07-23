@@ -1,9 +1,11 @@
 import type { TaskModel } from '@/models/Models'
 import { useLocalStorage } from '@vueuse/core'
-import { defineStore, storeToRefs } from 'pinia'
-import { computed, watch, type Ref } from 'vue'
+import { defineStore } from 'pinia'
+import { computed, type Ref } from 'vue'
+import { useStatusStore } from './StatusStore'
 
 export const useTaskStore = defineStore('taskstore', () => {
+  const { completed_id } = useStatusStore()
   const tasks: Ref<{ [id: string]: TaskModel }> = useLocalStorage('tasks', {
     default_task: {
       title: 'To Do',
@@ -40,8 +42,8 @@ export const useTaskStore = defineStore('taskstore', () => {
   }
 
   function compareCompleted(task1: string, task2: string) {
-    const completed1: boolean = tasks.value[task1].statusId === 'completed'
-    const completed2: boolean = tasks.value[task2].statusId === 'completed'
+    const completed1: boolean = tasks.value[task1].statusId === completed_id
+    const completed2: boolean = tasks.value[task2].statusId === completed_id
     if (completed1 && completed2) {
       return 0
     } else if (completed1) {

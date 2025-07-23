@@ -5,10 +5,12 @@ import { useDialog, Button } from 'primevue'
 import TaskEditModal from '@/modals/TaskEditModal.vue'
 import TagMultiSelect from './TagMultiSelect.vue'
 import StatusSelect from './StatusSelect.vue'
+import { useStatusStore } from '@/stores/StatusStore'
 
 const props = defineProps({ id: { type: String, required: true } })
 
 const taskStore = useTaskStore()
+const { completed_id } = useStatusStore()
 const dialog = useDialog()
 
 function onEditClicked(id: string) {
@@ -23,7 +25,7 @@ function onDeleteClicked(id: string) {
 }
 
 const opacity = computed<string>(() => {
-  if (taskStore.tasks[props.id].statusId === 'completed') {
+  if (taskStore.tasks[props.id].statusId === completed_id) {
     return 'opacity-50'
   }
   return ''

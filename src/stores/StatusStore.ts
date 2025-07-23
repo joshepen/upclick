@@ -34,7 +34,6 @@ export const useStatusStore = defineStore('statuses', () => {
       return statuses.value[status1].order - statuses.value[status2].order
     }),
   )
-  // TODO Add getNext function
 
   return { statuses, statusIds, completed_id }
 })

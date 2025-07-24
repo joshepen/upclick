@@ -23,7 +23,7 @@ function goTo(pageName: string) {
         </div>
         <div class="w-full flex items-center justify-end">
             <div class="h-full flex gap-2 items-center !bg-white rounded-xl px-2">
-                <Button class="!rounded-xl">About</Button>
+                <Button @click="goTo('about')" class="!rounded-xl">About</Button>
                 <Button class="!rounded-xl !bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200">Reset</Button>
             </div>
         </div>

@@ -43,7 +43,7 @@ function onAddClicked() {
     <div class="col-start-17 col-span-3 cell-header text-center">Created</div>
     <div class="col-start-20 col-span-3 cell-header text-center">Deadline</div>
     <div class="col-start-23 col-span-2 cell-header !p-2 flex">
-      <Button label="Add" @click="onAddClicked" class="grow" />
+      <Button label="Add" @click="onAddClicked" class="grow" pt:root:class="!bg-slate-700" />
     </div>
   </div>
   <div v-for="id in taskStore.taskIds" :key="id">

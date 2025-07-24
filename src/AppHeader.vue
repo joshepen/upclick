@@ -5,6 +5,13 @@ import router from './router'
 function goTo(pageName: string) {
     router.push({ name: pageName })
 }
+
+function reset() {
+    localStorage.removeItem('tasks')
+    localStorage.removeItem('statuses')
+    localStorage.removeItem('tags')
+    window.location.reload()
+}
 </script>
 
 <template>
@@ -24,7 +31,8 @@ function goTo(pageName: string) {
         <div class="w-full flex items-center justify-end">
             <div class="h-full flex gap-2 items-center !bg-white rounded-xl px-2">
                 <Button @click="goTo('about')" class="!rounded-xl">About</Button>
-                <Button class="!rounded-xl !bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200">Reset</Button>
+                <Button @click="reset"
+                    class="!rounded-xl !bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200">Reset</Button>
             </div>
         </div>
     </div>

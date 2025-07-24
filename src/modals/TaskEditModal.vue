@@ -5,7 +5,7 @@ import type { TaskModel } from '@/models/Models'
 import { useTaskStore } from '@/stores/TaskStore'
 
 const taskStore = useTaskStore()
-const dialogRef = inject('dialogRef')
+const dialogRef = inject('dialogRef') as any
 
 const id = ref(dialogRef.value.data ? dialogRef.value.data.id : '')
 const title = ref(dialogRef.value.data ? taskStore.tasks[id.value].title : '')
@@ -75,11 +75,8 @@ function onCancelClicked() {
       <DatePicker v-model="deadline" />
     </div>
     <div class="flex gap-5 justify-end">
-      <Button
-        label="Cancel"
-        @click="onCancelClicked"
-        class="!bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200"
-      />
+      <Button label="Cancel" @click="onCancelClicked"
+        class="!bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200" />
       <Button label="Save" @click="onSaveClicked" />
     </div>
   </div>

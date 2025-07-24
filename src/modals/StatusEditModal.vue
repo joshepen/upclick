@@ -5,7 +5,7 @@ import type { StatusModel, TaskModel } from '@/models/Models'
 import { useStatusStore } from '@/stores/StatusStore'
 
 const statusStore = useStatusStore()
-const dialogRef = inject('dialogRef')
+const dialogRef = inject('dialogRef') as any
 
 const id = ref(dialogRef.value.data ? dialogRef.value.data.id : '')
 const title = ref(dialogRef.value.data ? statusStore.statuses[id.value].title : '')
@@ -62,11 +62,8 @@ function onCancelClicked() {
       <InputNumber v-model="order" />
     </div>
     <div class="flex gap-5 justify-end">
-      <Button
-        label="Cancel"
-        @click="onCancelClicked"
-        class="!bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200"
-      />
+      <Button label="Cancel" @click="onCancelClicked"
+        class="!bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200" />
       <Button label="Save" @click="onSaveClicked" />
     </div>
   </div>

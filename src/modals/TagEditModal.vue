@@ -5,7 +5,7 @@ import type { TagModel } from '@/models/Models'
 import { useTagStore } from '@/stores/TagStore'
 
 const tagStore = useTagStore()
-const dialogRef = inject('dialogRef')
+const dialogRef = inject('dialogRef') as any
 
 const id = ref(dialogRef.value.data ? dialogRef.value.data.id : '')
 const title = ref(dialogRef.value.data ? tagStore.tags[id.value].title : '')
@@ -54,11 +54,8 @@ function onCancelClicked() {
       <InputText v-model="color" />
     </div>
     <div class="flex gap-5 justify-end">
-      <Button
-        label="Cancel"
-        @click="onCancelClicked"
-        class="!bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200"
-      />
+      <Button label="Cancel" @click="onCancelClicked"
+        class="!bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200" />
       <Button label="Save" @click="onSaveClicked" />
     </div>
   </div>

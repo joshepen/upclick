@@ -38,7 +38,10 @@ const dueColor = computed(() =>
 
 <template>
   <div :class="['grid grid-cols-24 gap-1 pb-1', opacity]">
-    <div class="col-start-1 col-span-4 cell text-nowrap text-lg">
+    <div
+      class="col-start-1 col-span-4 cell text-nowrap text-lg"
+      v-tooltip="taskStore.tasks[id].description"
+    >
       {{ taskStore.tasks[id].title }}
     </div>
     <div class="col-start-5 col-span-6 cell overflow-hidden">
@@ -70,7 +73,7 @@ const dueColor = computed(() =>
         <Button
           label="✎"
           pt:root:class="w-full !h-10"
-          pt:label:class="!text-slate-800 text-2xl"
+          pt:label:class="text-2xl"
           @click="onEditClicked(id)"
         />
         <Button

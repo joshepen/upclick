@@ -10,6 +10,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-slate-900);
 }
 
 * {
@@ -17,8 +18,26 @@ body {
   color: white !important;
 }
 
-.p-button .p-button-label {
-  color: var(--color-slate-800) !important;
+h1 {
+  font-size: var(--text-2xl);
+  line-height: var(--text-2xl--line-height);
+}
+
+.p-focus {
+  background-color: var(--color-slate-500) !important;
+}
+
+.p-select-option-selected {
+  background-color: var(--color-slate-600) !important;
+}
+
+.p-component {
+  border-color: transparent !important;
+  background-color: var(--color-slate-800) !important;
+}
+
+.p-dialog {
+  background-color: var(--color-slate-700) !important;
 }
 
 .cell {

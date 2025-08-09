@@ -7,6 +7,7 @@ import { useTaskStore } from '@/stores/TaskStore'
 const taskStore = useTaskStore()
 const dialogRef: Ref<any> | undefined = inject('dialogRef')
 
+
 const id = ref(dialogRef?.value.data ? dialogRef.value.data.id : '')
 const title = ref(dialogRef?.value.data ? taskStore.tasks[id.value].title : '')
 const description = ref(dialogRef?.value.data ? taskStore.tasks[id.value].description : '')

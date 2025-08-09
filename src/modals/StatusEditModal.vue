@@ -7,6 +7,7 @@ import { useStatusStore } from '@/stores/StatusStore'
 const statusStore = useStatusStore()
 const dialogRef: Ref<any> | undefined = inject('dialogRef')
 
+
 const id = ref(dialogRef?.value.data ? dialogRef.value.data.id : '')
 const title = ref(dialogRef?.value.data ? statusStore.statuses[id.value].title : '')
 const color = ref(dialogRef?.value.data ? statusStore.statuses[id.value].color : '')

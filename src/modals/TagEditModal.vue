@@ -7,6 +7,7 @@ import { useTagStore } from '@/stores/TagStore'
 const tagStore = useTagStore()
 const dialogRef: Ref<any> | undefined = inject('dialogRef')
 
+
 const id = ref(dialogRef?.value.data ? dialogRef.value.data.id : '')
 const title = ref(dialogRef?.value.data ? tagStore.tags[id.value].title : '')
 const color = ref(dialogRef?.value.data ? tagStore.tags[id.value].color : '')

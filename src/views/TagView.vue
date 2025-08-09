@@ -37,16 +37,26 @@ function onDeleteClicked(id: string) {
       {{ tagStore.tags[id].title }}
     </div>
     <div class="col-start-3 col-span-2 cell text-nowrap text-lg">
-      <span :class="['py-1 px-2 rounded-sm !bg-' + tagStore.tags[id].color + '-300 !text-slate-800']">
+      <span
+        :class="['py-1 px-2 rounded-sm !bg-' + tagStore.tags[id].color + '-300 !text-slate-800']"
+      >
         {{ tagStore.tags[id].color }}
       </span>
     </div>
     <div class="col-start-5 col-span-1 cell text-nowrap text-lg">
       <div class="flex justify-around gap-2 p-1 grow">
-        <Button label="✎" pt:root:class="w-full !h-10" pt:label:class="text-2xl" @click="onEditClicked(id)" />
-        <Button label="X"
+        <Button
+          label="✎"
+          pt:root:class="w-full !h-10"
+          pt:label:class="text-2xl"
+          @click="onEditClicked(id)"
+        />
+        <Button
+          label="X"
           pt:root:class="w-full !h-10 !bg-red-400 !border-none hover:!bg-red-300 active:!bg-red-200 !border-none"
-          pt:label:class="!text-slate-800 text-xl" @click="onDeleteClicked(id)" />
+          pt:label:class="!text-slate-800 text-xl"
+          @click="onDeleteClicked(id)"
+        />
       </div>
     </div>
   </div>

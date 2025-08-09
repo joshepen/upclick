@@ -21,5 +21,14 @@ export const useTagStore = defineStore('tags', () => {
 
   const tagIds = computed<string[]>(() => Object.keys(tags.value))
 
-  return { tags, tagIds }
+  function getNextId(): string {
+    let id = 0
+
+    while (tagIds.value.includes(id.toString())) {
+      id++
+    }
+    return id
+  }
+
+  return { tags, tagIds, getNextId }
 })

@@ -24,7 +24,7 @@ const deadline = ref(
 function onSaveClicked() {
   const deadlineStr = deadline.value ? deadline.value.toISOString() : ''
   if (!dialogRef.value.data) {
-    taskStore.tasks[id.value] = {
+    taskStore.tasks[taskStore.getNextId()] = {
       title: title.value,
       description: description.value,
       createdOn: createdOn.value,
@@ -32,14 +32,6 @@ function onSaveClicked() {
       statusId: '',
       tagIds: [],
     } as TaskModel
-  } else if (dialogRef.value.data.id !== id.value) {
-    taskStore.tasks[id.value] = {
-      ...taskStore.tasks[dialogRef.value.data.id],
-      title: title.value,
-      description: description.value,
-      deadline: deadlineStr,
-    }
-    delete taskStore.tasks[dialogRef.value.data.id]
   } else {
     taskStore.tasks[id.value] = {
       ...taskStore.tasks[id.value],
@@ -58,10 +50,6 @@ function onCancelClicked() {
 
 <template>
   <div class="flex flex-col gap-8">
-    <div class="flex justify-between gap-10 items-center">
-      <span class="text-lg">Task ID:</span>
-      <InputText v-model="id" />
-    </div>
     <div class="flex justify-between gap-10 items-center">
       <span class="text-lg">Title:</span>
       <InputText v-model="title" />

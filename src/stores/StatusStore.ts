@@ -35,5 +35,14 @@ export const useStatusStore = defineStore('statuses', () => {
     }),
   )
 
-  return { statuses, statusIds, completed_id }
+  function getNextId(): string {
+    let id = 0
+
+    while (statusIds.value.includes(id.toString())) {
+      id++
+    }
+    return id
+  }
+
+  return { statuses, statusIds, completed_id, getNextId }
 })

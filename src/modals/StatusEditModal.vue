@@ -14,19 +14,11 @@ const order = ref(dialogRef.value.data ? statusStore.statuses[id.value].order : 
 
 function onSaveClicked() {
   if (!dialogRef.value.data) {
-    statusStore.statuses[id.value] = {
+    statusStore.statuses[statusStore.getNextId()] = {
       title: title.value,
       color: color.value,
       order: order.value,
     } as StatusModel
-  } else if (dialogRef.value.data.id !== id.value) {
-    statusStore.statuses[id.value] = {
-      ...statusStore.statuses[dialogRef.value.data.id],
-      title: title.value,
-      color: color.value,
-      order: order.value,
-    } as StatusModel
-    delete statusStore.statuses[dialogRef.value.data.id]
   } else {
     statusStore.statuses[id.value] = {
       ...statusStore.statuses[dialogRef.value.data.id],
@@ -45,10 +37,6 @@ function onCancelClicked() {
 
 <template>
   <div class="flex flex-col gap-8">
-    <div class="flex justify-between gap-10 items-center">
-      <span class="text-lg">Task ID:</span>
-      <InputText v-model="id" />
-    </div>
     <div class="flex justify-between gap-10 items-center">
       <span class="text-lg">Title:</span>
       <InputText v-model="title" />

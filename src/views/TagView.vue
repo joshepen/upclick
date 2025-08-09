@@ -29,7 +29,7 @@ function onDeleteClicked(id: string) {
     <div class="col-start-1 col-span-2 cell-header text-nowrap">Title</div>
     <div class="col-start-3 col-span-2 cell-header overflow-hidden">Color</div>
     <div class="col-start-5 col-span-1 cell-header !p-2 flex">
-      <Button label="Add" @click="onAddClicked" class="grow" pt:root:class="!bg-slate-700" />
+      <Button label="Add" @click="onAddClicked" class="grow" pt:root:class="!bg-slate-700 hover:!bg-slate-600" />
     </div>
   </div>
   <div v-for="id in tagStore.tagIds" class="grid grid-cols-5 gap-1 pb-1">

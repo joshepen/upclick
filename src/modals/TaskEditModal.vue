@@ -60,7 +60,7 @@ function onCancelClicked() {
     </div>
     <div class="flex justify-between gap-10 items-center">
       <span class="text-lg">Deadline:</span>
-      <DatePicker v-model="deadline" />
+      <DatePicker v-model="deadline" pt:header:class="!bg-inherit" />
     </div>
     <div class="flex gap-5 justify-end">
       <Button

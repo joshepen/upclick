@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, ref, type Ref } from 'vue'
 import { InputText, DatePicker, Button } from 'primevue'
 import type { TaskModel } from '@/models/Models'
 import { useTaskStore } from '@/stores/TaskStore'
 
 const taskStore = useTaskStore()
-const dialogRef = inject('dialogRef') as any
+const dialogRef: Ref<any> | undefined = inject('dialogRef')
 
-const id = ref(dialogRef.value.data ? dialogRef.value.data.id : '')
-const title = ref(dialogRef.value.data ? taskStore.tasks[id.value].title : '')
-const description = ref(dialogRef.value.data ? taskStore.tasks[id.value].description : '')
+
+const id = ref(dialogRef?.value.data ? dialogRef.value.data.id : '')
+const title = ref(dialogRef?.value.data ? taskStore.tasks[id.value].title : '')
+const description = ref(dialogRef?.value.data ? taskStore.tasks[id.value].description : '')
 const createdOn = ref(
-  dialogRef.value.data ? taskStore.tasks[id.value].createdOn : new Date().toISOString(),
+  dialogRef?.value.data ? taskStore.tasks[id.value].createdOn : new Date().toISOString(),
 )
 const deadline = ref(
-  dialogRef.value.data
+  dialogRef?.value.data
     ? taskStore.tasks[id.value].deadline
       ? new Date(taskStore.tasks[id.value].deadline)
       : null
@@ -23,7 +24,7 @@ const deadline = ref(
 
 function onSaveClicked() {
   const deadlineStr = deadline.value ? deadline.value.toISOString() : ''
-  if (!dialogRef.value.data) {
+  if (!dialogRef?.value.data) {
     taskStore.tasks[taskStore.getNextId()] = {
       title: title.value,
       description: description.value,
@@ -40,11 +41,11 @@ function onSaveClicked() {
       deadline: deadlineStr,
     }
   }
-  dialogRef.value.close()
+  dialogRef?.value.close()
 }
 
 function onCancelClicked() {
-  dialogRef.value.close()
+  dialogRef?.value.close()
 }
 </script>
 

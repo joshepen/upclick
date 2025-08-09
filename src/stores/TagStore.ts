@@ -27,7 +27,7 @@ export const useTagStore = defineStore('tags', () => {
     while (tagIds.value.includes(id.toString())) {
       id++
     }
-    return id
+    return id.toString()
   }
 
   return { tags, tagIds, getNextId }

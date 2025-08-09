@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, ref, type Ref } from 'vue'
 import { InputText, InputNumber, Button } from 'primevue'
 import type { StatusModel, TaskModel } from '@/models/Models'
 import { useStatusStore } from '@/stores/StatusStore'
 
 const statusStore = useStatusStore()
-const dialogRef = inject('dialogRef') as any
+const dialogRef: Ref<any> | undefined = inject('dialogRef')
 
-const id = ref(dialogRef.value.data ? dialogRef.value.data.id : '')
-const title = ref(dialogRef.value.data ? statusStore.statuses[id.value].title : '')
-const color = ref(dialogRef.value.data ? statusStore.statuses[id.value].color : '')
-const order = ref(dialogRef.value.data ? statusStore.statuses[id.value].order : 0)
+
+const id = ref(dialogRef?.value.data ? dialogRef.value.data.id : '')
+const title = ref(dialogRef?.value.data ? statusStore.statuses[id.value].title : '')
+const color = ref(dialogRef?.value.data ? statusStore.statuses[id.value].color : '')
+const order = ref(dialogRef?.value.data ? statusStore.statuses[id.value].order : 0)
 
 function onSaveClicked() {
-  if (!dialogRef.value.data) {
+  if (!dialogRef?.value.data) {
     statusStore.statuses[statusStore.getNextId()] = {
       title: title.value,
       color: color.value,
@@ -27,11 +28,11 @@ function onSaveClicked() {
       order: order.value,
     } as StatusModel
   }
-  dialogRef.value.close()
+  dialogRef?.value.close()
 }
 
 function onCancelClicked() {
-  dialogRef.value.close()
+  dialogRef?.value.close()
 }
 </script>
 

@@ -65,5 +65,13 @@ export const useTaskStore = defineStore('taskstore', () => {
     }),
   )
 
-  return { tasks, taskIds }
+  function getNextId(): string {
+    let id = 0
+
+    while (taskIds.value.includes(id.toString())) {
+      id++
+    }
+    return id
+  }
+  return { tasks, taskIds, getNextId }
 })

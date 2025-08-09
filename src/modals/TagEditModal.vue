@@ -13,17 +13,10 @@ const color = ref(dialogRef.value.data ? tagStore.tags[id.value].color : '')
 
 function onSaveClicked() {
   if (!dialogRef.value.data) {
-    tagStore.tags[id.value] = {
+    tagStore.tags[tagStore.getNextId()] = {
       title: title.value,
       color: color.value,
     } as TagModel
-  } else if (dialogRef.value.data.id !== id.value) {
-    tagStore.tags[id.value] = {
-      ...tagStore.tags[dialogRef.value.data.id],
-      title: title.value,
-      color: color.value,
-    } as TagModel
-    delete tagStore.tags[dialogRef.value.data.id]
   } else {
     tagStore.tags[id.value] = {
       ...tagStore.tags[id.value],
@@ -41,10 +34,6 @@ function onCancelClicked() {
 
 <template>
   <div class="flex flex-col gap-8">
-    <div class="flex justify-between gap-10 items-center">
-      <span class="text-lg">Task ID:</span>
-      <InputText v-model="id" />
-    </div>
     <div class="flex justify-between gap-10 items-center">
       <span class="text-lg">Title:</span>
       <InputText v-model="title" />

@@ -36,6 +36,12 @@ h1 {
   background-color: var(--color-slate-800) !important;
 }
 
+.p-button:hover {
+  background-color: var(--color-slate-700) !important;
+  border-width: 2px !important;
+  border-color: var(--color-slate-800) !important;
+}
+
 .p-dialog {
   background-color: var(--color-slate-700) !important;
 }

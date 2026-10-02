@@ -4,8 +4,8 @@
   --accent:#3346F0; --accent-ink:#FFFFFF; --accent-soft:#E1E5FE;
   --danger:#C62F3D; --ok:#1B7F52;
   --shadow:0 2px 4px rgba(20,27,45,.06),0 16px 40px rgba(20,27,45,.16);
-  --font-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
-  --font-body:'Instrument Sans','Segoe UI',system-ui,-apple-system,sans-serif;
+  --font-display:'Jetbrains Mono','Segoe UI',system-ui,sans-serif;
+  --font-body:'Jetbrains Mono','Segoe UI',system-ui,-apple-system,sans-serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){

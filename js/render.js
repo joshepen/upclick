@@ -138,7 +138,7 @@ function renderMain() {
   $('#showFinished').disabled = ui.status !== 'all';
 
   $('#taskCount').textContent = list.length === state.tasks.length
-    ? state.tasks.length + (state.tasks.length === 1 ? ' Task' : ' tasks')
+    ? state.tasks.length + (state.tasks.length === 1 ? ' Task' : ' Tasks')
     : list.length + ' of ' + state.tasks.length + ' Tasks';
 
   var chips = [];

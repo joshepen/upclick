@@ -137,9 +137,9 @@ function renderMain() {
   $('#showFinished').checked = ui.showFinished;
   $('#showFinished').disabled = ui.status !== 'all';
 
-  $('#viewSub').textContent = list.length === state.tasks.length
-    ? state.tasks.length + (state.tasks.length === 1 ? ' task' : ' tasks')
-    : list.length + ' of ' + state.tasks.length + ' tasks';
+  $('#taskCount').textContent = list.length === state.tasks.length
+    ? state.tasks.length + (state.tasks.length === 1 ? ' Task' : ' tasks')
+    : list.length + ' of ' + state.tasks.length + ' Tasks';
 
   var chips = [];
   if (ui.status !== 'all' && statusById(ui.status)) chips.push(clearChip('Status: ' + statusById(ui.status).name, function () { ui.status = 'all'; save(); renderAll(); }));

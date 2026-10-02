@@ -33,7 +33,7 @@ function statusManager() {
         save(); renderManage(); renderAll();
         refocus('[data-focus="kind-' + s.id + '"]');
       }
-    }, el('option', { value: 'task', text: 'Reference another task' }), el('option', { value: 'text', text: 'Reference text, such as a person' }));
+    }, el('option', { value: 'task', text: 'Reference another task' }), el('option', { value: 'text', text: 'Reference text' }));
     kindSel.value = s.linkKind === 'text' ? 'text' : 'task';
     var labelIn = el('input', {
       class: 'in', type: 'text', value: s.linkLabel, maxlength: '30', placeholder: 'Label, e.g. Waiting on', 'aria-label': 'Label shown on tasks with this status', 'data-focus': 'label-' + s.id,

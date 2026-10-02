@@ -7,17 +7,15 @@ A site for task management that stores all of your data in local storage.
 - Create tasks
   - Easily editable
   - Add deadlines, descriptions
-  - Sorted by deadline
-  - Cycle to the next / previous status with arrow buttons
+  - Sorted by deadline, creation time, status, etc
   - Completed tasks are automatically moved to the bottom
 - Create statuses
-  - Order the tasks to determine how they cycle
-  - Choose any color name from the [tailwind colours](https://tailwindcss.com/docs/colors)
+  - Statuses can be linked to other tasks or text fields (eg. Waiting on: Bob)
+  - Filter by status
 - Create tags
-  - Choose any color name from the [tailwind colours](https://tailwindcss.com/docs/colors)
+  - Assign any number of tags to a task
+  - Filter by tags
 
 ## Setup Instructions
 
-- `npm i`
-- `npm run dev`
-- Doesn't really need more explanation than that
+- Just run a web server

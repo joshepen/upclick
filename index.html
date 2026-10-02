@@ -1,18 +1,195 @@
 <!doctype html>
-<html lang="">
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>joshepen</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UpClick</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/controls.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/board.css" />
+    <link rel="stylesheet" href="css/menu.css" />
+    <link rel="stylesheet" href="css/dialogs.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <aside class="side" aria-label="Filters">
+        <div class="brand">
+          <h1>UpClick</h1>
+        </div>
+        <button class="btn primary big" id="newTask" type="button">New task</button>
+
+        <nav aria-label="Filter by status">
+          <div class="sec-head">
+            <h2>Statuses</h2>
+            <button class="btn ghost small" id="manageStatuses" type="button">Manage</button>
+          </div>
+          <div class="filter-list" id="statusList"></div>
+        </nav>
+
+        <nav aria-label="Filter by tag">
+          <div class="sec-head">
+            <h2>Tags</h2>
+            <button class="btn ghost small" id="manageTags" type="button">Manage</button>
+          </div>
+          <div class="filter-list" id="tagList"></div>
+        </nav>
+
+        <div class="side-foot">
+          <button class="btn ghost small warn" id="resetBtn" type="button">Reset UpClick</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="main-head">
+          <div>
+            <h2 id="taskCount"></h2>
+          </div>
+          <div class="tools">
+            <input
+              class="in"
+              id="search"
+              type="search"
+              maxlength="300"
+              placeholder="Search tasks"
+              aria-label="New task description"
+            />
+
+            <select class="in" id="sort" aria-label="Sort tasks">
+              <option value="deadline">Deadline, soonest first</option>
+              <option value="created-new">Newest first</option>
+              <option value="created-old">Oldest first</option>
+              <option value="status">Status</option>
+              <option value="alpha">Description, A to Z</option>
+            </select>
+            <label class="check-label"
+              ><input type="checkbox" id="showFinished" /> Show finished</label
+            >
+          </div>
+        </header>
+
+        <div class="active-filters" id="activeFilters"></div>
+        <div class="board" id="board"></div>
+      </main>
+    </div>
+
+    <div class="menu" id="statusMenu" role="menu" aria-label="Change status" hidden></div>
+
+    <!-- Task dialog -->
+    <dialog id="taskDialog" aria-labelledby="taskDialogTitle">
+      <div class="dlg">
+        <div class="dlg-head">
+          <h2 id="taskDialogTitle">New task</h2>
+          <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
+        </div>
+        <div class="dlg-body">
+          <label class="field"
+            ><span>Description</span>
+            <textarea
+              class="in"
+              id="fDesc"
+              rows="3"
+              maxlength="1000"
+              placeholder="What needs doing?"
+            ></textarea>
+          </label>
+          <div class="row2">
+            <label class="field"
+              ><span>Status</span
+              ><select class="in" id="fStatus"></select
+            ></label>
+            <label class="field"
+              ><span>Deadline</span><input class="in" type="date" id="fDeadline"
+            /></label>
+          </div>
+          <label class="field" id="fLinkWrap" hidden>
+            <span id="fLinkLabel">Linked task</span>
+            <select class="in" id="fLink"></select>
+            <small class="hint" id="fLinkHint"></small>
+          </label>
+          <label class="field" id="fTextWrap" hidden>
+            <span id="fTextLabel">Reference</span>
+            <input
+              class="in"
+              type="text"
+              id="fText"
+              maxlength="200"
+              placeholder="For example, a person's name"
+            />
+          </label>
+          <div class="field" role="group" aria-labelledby="fTagsLabel">
+            <span class="lbl-t" id="fTagsLabel">Tags</span>
+            <div class="tagpick" id="fTags"></div>
+            <div class="inline-add">
+              <input
+                class="in"
+                type="text"
+                id="fNewTag"
+                maxlength="30"
+                placeholder="New tag name"
+                aria-label="New tag name"
+              />
+              <button class="btn" type="button" id="fAddTag">Add tag</button>
+            </div>
+          </div>
+          <p class="meta" id="fCreated" hidden></p>
+          <p class="error" id="fError" role="alert" hidden></p>
+        </div>
+        <div class="dlg-foot">
+          <button class="btn ghost warn" type="button" id="fDelete" hidden>Delete task</button>
+          <span class="spacer"></span>
+          <button class="btn" type="button" data-close>Cancel</button>
+          <button class="btn primary" type="button" id="fSave">Save task</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Manage dialog (statuses and tags) -->
+    <dialog id="manageDialog" aria-labelledby="manageTitle">
+      <div class="dlg">
+        <div class="dlg-head">
+          <h2 id="manageTitle">Manage</h2>
+          <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
+        </div>
+        <div class="dlg-body" id="manageBody"></div>
+        <div class="dlg-foot">
+          <span class="spacer"></span>
+          <button class="btn primary" type="button" data-close>Done</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Confirm dialog -->
+    <dialog id="confirmDialog" aria-labelledby="cTitle" aria-describedby="cBody">
+      <div class="dlg">
+        <div class="dlg-body pad">
+          <h2 id="cTitle"></h2>
+          <p id="cBody" class="muted"></p>
+        </div>
+        <div class="dlg-foot">
+          <span class="spacer"></span>
+          <button class="btn" type="button" id="cCancel">Cancel</button>
+          <button class="btn danger" type="button" id="cOk">Confirm</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="js/utils.js"></script>
+    <script src="js/dates.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/feedback.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/actions.js"></script>
+    <script src="js/status-menu.js"></script>
+    <script src="js/task-dialog.js"></script>
+    <script src="js/manage.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

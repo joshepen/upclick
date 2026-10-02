@@ -151,7 +151,7 @@ function renderMain() {
   if (!state.tasks.length) {
     board.replaceChildren(el('div', { class: 'empty' },
       el('h2', { text: 'No tasks yet' }),
-      el('p', { text: 'Type a description in the box above and press Enter, or choose New task to set a deadline, status and tags.' }),
+      el('p', { text: 'Create a task to populate this list.' }),
       el('button', { type: 'button', class: 'btn primary', onclick: function () { openTask(null); }, text: 'New task' })));
   } else if (!list.length) {
     board.replaceChildren(el('div', { class: 'empty' },

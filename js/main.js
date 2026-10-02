@@ -1,16 +1,5 @@
 'use strict';
 
-function quickAdd() {
-  var input = $('#quickInput');
-  var v = input.value.trim();
-  if (!v) { input.focus(); return; }
-  addTask({ description: v, statusId: defaultNewStatus().id, tags: ui.tag !== 'all' ? [ui.tag] : [] });
-  input.value = '';
-  toast('Task added');
-  input.focus();
-}
-$('#quickAdd').addEventListener('click', quickAdd);
-$('#quickInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); quickAdd(); } });
 $('#newTask').addEventListener('click', function () { openTask(null); });
 $('#manageStatuses').addEventListener('click', function () { openManage('statuses'); });
 $('#manageTags').addEventListener('click', function () { openManage('tags'); });

@@ -15,7 +15,7 @@ function renderSide() {
     sc[t.statusId] = (sc[t.statusId] || 0) + 1;
     t.tags.forEach(function (g) { tc[g] = (tc[g] || 0) + 1; });
   });
-  var sItems = [filterBtn('All statuses', null, state.tasks.length, ui.status === 'all', function () { setFilter('status', 'all'); })];
+  var sItems = [filterBtn('All unfinished', null, state.tasks.filter((task) => !task.doneFrom).length, ui.status === 'all', function () { setFilter('status', 'all'); })];
   state.statuses.forEach(function (s) {
     sItems.push(filterBtn(s.name, s.color, sc[s.id] || 0, ui.status === s.id, function () { setFilter('status', ui.status === s.id ? 'all' : s.id); }));
   });

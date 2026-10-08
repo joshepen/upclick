@@ -71,12 +71,16 @@ function renderSide() {
 
 function setFilter(kind, val, finished = false) {
   ui[kind] = val
+  
   if (finished) {
-    ui.tempSort = ui.sort
-    ui.sort = 'deadline-latest'
+    if(ui.sort !== 'deadline-latest'){
+      ui.tempSort = ui.sort
+      ui.sort = 'deadline-latest'
+    }
   } else {
     ui.sort = ui.tempSort
   }
+
   save()
   renderAll()
 }

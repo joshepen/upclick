@@ -120,7 +120,7 @@ function visibleTasks() {
       break
     case 'deadline-latest':
       list.sort(function (a, b) {
-        return isFinished(b) - isFinished(a) || cmpDeadline(b, a)
+        return cmpDeadline(b, a)
       })
       break
     case 'status':
@@ -135,7 +135,7 @@ function visibleTasks() {
       break
     default:
       list.sort(function (a, b) {
-        return isFinished(a) - isFinished(b) || cmpDeadline(a, b)
+        return cmpDeadline(a, b)
       })
   }
   return list

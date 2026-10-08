@@ -38,7 +38,7 @@ function renderSide() {
   state.statuses.forEach(function (s) {
     sItems.push(
       filterBtn(s.name, s.color, sc[s.id] || 0, ui.status === s.id, function () {
-        setFilter('status', ui.status === s.id ? 'all' : s.id)
+        setFilter('status', s.id, s.finished)
       }),
     )
   })
@@ -61,7 +61,7 @@ function renderSide() {
     state.tags.forEach(function (g) {
       tItems.push(
         filterBtn(g.name, g.color, tc[g.id] || 0, ui.tag === g.id, function () {
-          setFilter('tag', ui.tag === g.id ? 'all' : g.id)
+          setFilter('tag', g.id)
         }),
       )
     })
@@ -69,8 +69,18 @@ function renderSide() {
   $('#tagList').replaceChildren.apply($('#tagList'), tItems)
 }
 
-function setFilter(kind, val) {
+function setFilter(kind, val, finished = false) {
   ui[kind] = val
+  
+  if (finished) {
+    if(ui.sort !== 'deadline-latest'){
+      ui.tempSort = ui.sort
+      ui.sort = 'deadline-latest'
+    }
+  } else {
+    ui.sort = ui.tempSort
+  }
+
   save()
   renderAll()
 }
@@ -118,6 +128,11 @@ function visibleTasks() {
         return a.created.localeCompare(b.created)
       })
       break
+    case 'deadline-latest':
+      list.sort(function (a, b) {
+        return cmpDeadline(b, a)
+      })
+      break
     case 'status':
       list.sort(function (a, b) {
         return idx(a) - idx(b) || cmpDeadline(a, b)
@@ -130,7 +145,7 @@ function visibleTasks() {
       break
     default:
       list.sort(function (a, b) {
-        return isFinished(a) - isFinished(b) || cmpDeadline(a, b)
+        return cmpDeadline(a, b)
       })
   }
   return list

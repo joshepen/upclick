@@ -15,6 +15,7 @@ $('#search').addEventListener('input', function (e) {
 })
 $('#sort').addEventListener('change', function (e) {
   ui.sort = e.target.value
+  ui.tempSort = e.target.value
   save()
   renderMain()
 })

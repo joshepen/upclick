@@ -118,6 +118,11 @@ function visibleTasks() {
         return a.created.localeCompare(b.created)
       })
       break
+    case 'deadline-latest':
+      list.sort(function (a, b) {
+        return isFinished(b) - isFinished(a) || cmpDeadline(b, a)
+      })
+      break
     case 'status':
       list.sort(function (a, b) {
         return idx(a) - idx(b) || cmpDeadline(a, b)

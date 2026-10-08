@@ -12,7 +12,7 @@ var PALETTE = [
   '#6B7BA8',
 ]
 var HEX = /^#[0-9a-fA-F]{6}$/
-var SORTS = ['deadline', 'created-new', 'created-old', 'status', 'alpha']
+var SORTS = ['deadline', 'deadline-latest', 'created-new', 'created-old', 'status', 'alpha']
 
 function $(s, r) {
   return (r || document).querySelector(s)

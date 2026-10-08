@@ -38,7 +38,7 @@ function renderSide() {
   state.statuses.forEach(function (s) {
     sItems.push(
       filterBtn(s.name, s.color, sc[s.id] || 0, ui.status === s.id, function () {
-        setFilter('status', ui.status === s.id ? 'all' : s.id)
+        setFilter('status', s.id, s.finished)
       }),
     )
   })
@@ -61,7 +61,7 @@ function renderSide() {
     state.tags.forEach(function (g) {
       tItems.push(
         filterBtn(g.name, g.color, tc[g.id] || 0, ui.tag === g.id, function () {
-          setFilter('tag', ui.tag === g.id ? 'all' : g.id)
+          setFilter('tag', g.id)
         }),
       )
     })
@@ -69,8 +69,14 @@ function renderSide() {
   $('#tagList').replaceChildren.apply($('#tagList'), tItems)
 }
 
-function setFilter(kind, val) {
+function setFilter(kind, val, finished = false) {
   ui[kind] = val
+  if (finished) {
+    ui.tempSort = ui.sort
+    ui.sort = 'deadline-latest'
+  } else {
+    ui.sort = ui.tempSort
+  }
   save()
   renderAll()
 }

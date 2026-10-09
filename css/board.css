@@ -4,7 +4,22 @@
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
+
+.board > .thead {
+  flex: none;
+}
+
+.board > .list-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: scroll;
+}
+
 .thead,
 .task {
   display: grid;

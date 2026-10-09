@@ -302,6 +302,12 @@ function taskRow(t) {
     {
       class: 'task' + (fin ? ' is-done' : '') + (justAdded === t.id ? ' flash' : ''),
       role: 'listitem',
+      onclick: function (e) {
+        if (e.target.closest('button, a, input, select, textarea, [role="menu"]')) return
+        var sel = window.getSelection()
+        if (sel && sel.toString()) return
+        openTask(t.id)
+      },
     },
     check,
     body,
@@ -390,7 +396,7 @@ function renderMain() {
       el('span', { text: 'Deadline' }),
       el('span', { text: 'Created' }),
     )
-    var rows = el('div', { role: 'list' }, list.map(taskRow))
+    var rows = el('div', { role: 'list', class: 'list-body' }, list.map(taskRow))
     board.replaceChildren(head, rows)
   }
   var flash = $('.task.flash')

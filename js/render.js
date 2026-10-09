@@ -390,7 +390,7 @@ function renderMain() {
       el('span', { text: 'Deadline' }),
       el('span', { text: 'Created' }),
     )
-    var rows = el('div', { role: 'list' }, list.map(taskRow))
+    var rows = el('div', { role: 'list', class: 'list-body' }, list.map(taskRow))
     board.replaceChildren(head, rows)
   }
   var flash = $('.task.flash')

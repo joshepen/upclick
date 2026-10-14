@@ -8,8 +8,9 @@ taskDlg.addEventListener('keydown', function (e) {
   var el = document.activeElement
   var nothingSelected = !el || el === document.body || el === taskDlg
   var inDesc = el === $('#fDesc')
+  var inStatusText = el === $('#fText')
 
-  if (!inDesc && !nothingSelected) return
+  if (!inDesc && !inStatusText && !nothingSelected) return
 
   e.preventDefault()
   saveTask()
@@ -57,12 +58,13 @@ function openTask(id, opts) {
       statusRef: '',
       statusText: '',
       tags: ui.tag !== 'all' ? [ui.tag] : [],
+      deadline: new Date().toLocaleDateString('en-CA'),
     }
   }
   if (opts.statusId) draft.statusId = opts.statusId
   $('#taskDialogTitle').textContent = t ? 'Edit task' : 'New task'
   $('#fDesc').value = t ? t.description : opts.description || ''
-  $('#fDeadline').value = t ? t.deadline : ''
+  $('#fDeadline').value = t ? t.deadline : draft.deadline
   fillStatusSelect()
   renderTagPicker()
   updateLinkField()

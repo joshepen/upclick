@@ -1,6 +1,21 @@
 'use strict'
 
 var taskDlg = $('#taskDialog')
+taskDlg.addEventListener('keydown', function (e) {
+  if (e.key !== 'Enter' || e.isComposing) return
+  if (e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return
+
+  var el = document.activeElement
+  var nothingSelected = !el || el === document.body || el === taskDlg
+  var inDesc = el === $('#fDesc')
+  var inStatusText = el === $('#fText')
+
+  if (!inDesc && !inStatusText && !nothingSelected) return
+
+  e.preventDefault()
+  saveTask()
+})
+
 var draft = null
 
 function wouldCycle(candidateId, selfId) {
@@ -43,12 +58,13 @@ function openTask(id, opts) {
       statusRef: '',
       statusText: '',
       tags: ui.tag !== 'all' ? [ui.tag] : [],
+      deadline: new Date().toLocaleDateString('en-CA'),
     }
   }
   if (opts.statusId) draft.statusId = opts.statusId
   $('#taskDialogTitle').textContent = t ? 'Edit task' : 'New task'
   $('#fDesc').value = t ? t.description : opts.description || ''
-  $('#fDeadline').value = t ? t.deadline : ''
+  $('#fDeadline').value = t ? t.deadline : draft.deadline
   fillStatusSelect()
   renderTagPicker()
   updateLinkField()
@@ -239,7 +255,6 @@ function saveTask() {
     return
   }
   var deadline = $('#fDeadline').value
-  console.log('AAA', deadline)
   var ref = isTaskLink(st) ? draft.statusRef : null
   var refText = isText ? draft.statusText.trim() : ''
   if (draft.id) {

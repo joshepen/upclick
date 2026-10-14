@@ -239,7 +239,6 @@ function saveTask() {
     return
   }
   var deadline = $('#fDeadline').value
-  console.log('AAA', deadline)
   var ref = isTaskLink(st) ? draft.statusRef : null
   var refText = isText ? draft.statusText.trim() : ''
   if (draft.id) {

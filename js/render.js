@@ -20,15 +20,17 @@ function renderSide() {
     tc = {}
   state.tasks.forEach(function (t) {
     sc[t.statusId] = (sc[t.statusId] || 0) + 1
-    t.tags.forEach(function (g) {
-      tc[g] = (tc[g] || 0) + 1
-    })
+    if (!state.statuses.find((status)=>status.id==t.statusId).finished){
+      t.tags.forEach(function (g) {
+        tc[g] = (tc[g] || 0) + 1
+      })
+    }
   })
   var sItems = [
     filterBtn(
-      'All unfinished',
+      'All statuses',
       null,
-      state.tasks.filter((task) => !task.doneFrom).length,
+      state.tasks.filter((task) => !state.statuses.find((status)=>status.id==task.statusId).finished).length,
       ui.status === 'all',
       function () {
         setFilter('status', 'all')
@@ -54,7 +56,7 @@ function renderSide() {
     )
   } else {
     tItems.push(
-      filterBtn('All tags', null, state.tasks.length, ui.tag === 'all', function () {
+      filterBtn('All tags', null, state.tasks.filter((task) => !state.statuses.find((status)=>status.id==task.statusId).finished).length, ui.tag === 'all', function () {
         setFilter('tag', 'all')
       }),
     )

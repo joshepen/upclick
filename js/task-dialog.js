@@ -1,6 +1,20 @@
 'use strict'
 
 var taskDlg = $('#taskDialog')
+taskDlg.addEventListener('keydown', function (e) {
+  if (e.key !== 'Enter' || e.isComposing) return
+  if (e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return
+
+  var el = document.activeElement
+  var nothingSelected = !el || el === document.body || el === taskDlg
+  var inDesc = el === $('#fDesc')
+
+  if (!inDesc && !nothingSelected) return
+
+  e.preventDefault()
+  saveTask()
+})
+
 var draft = null
 
 function wouldCycle(candidateId, selfId) {
